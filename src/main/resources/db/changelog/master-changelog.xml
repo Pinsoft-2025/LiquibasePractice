@@ -191,4 +191,21 @@
         </insert>
     </changeSet>
 
+    <!--CHANGE TABLE NAMES-->
+    <changeSet id="19" author="Sena">
+        <renameTable oldTableName="Category" newTableName="category"/>
+    </changeSet>
+
+    <changeSet id="20" author="Sena">
+        <renameTable oldTableName="Product" newTableName="product"/>
+    </changeSet>
+
+    <changeSet id="21" author="Sena">
+        <renameTable oldTableName="Role" newTableName="role"/>
+    </changeSet>
+
+    <changeSet id="22" author="Sena">
+        <renameTable oldTableName="User" newTableName="user"/>
+    </changeSet>
+
 </databaseChangeLog>
