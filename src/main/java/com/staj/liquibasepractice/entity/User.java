@@ -14,13 +14,13 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    String email;
-    String username;
-    String password;
+    private String email;
+    private String username;
+    private String password;
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
-    Role role;
+    private Role role;
 }

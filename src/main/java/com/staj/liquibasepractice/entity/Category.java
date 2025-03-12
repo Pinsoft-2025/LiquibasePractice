@@ -17,9 +17,9 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-     Long id;
+    private Long id;
 
-    String name;
+    private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<Product>();

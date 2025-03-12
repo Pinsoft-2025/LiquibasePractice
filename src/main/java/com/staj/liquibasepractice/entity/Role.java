@@ -17,10 +17,10 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    String name;
+    private String name;
 
     @OneToMany
-    List<Role> roles = new ArrayList<Role>();
+    private List<Role> roles = new ArrayList<Role>();
 }

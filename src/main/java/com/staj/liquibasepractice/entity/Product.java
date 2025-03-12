@@ -14,13 +14,13 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    String name;
-    float price;
-    String explanation;
+    private String name;
+    private float price;
+    private String explanation;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
-    Category category;
+    private Category category;
 }
