@@ -5,6 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
+    <!-- CREATE TABLES (CATEGORY, PRODUCT, ROLE, USER)  -->
     <changeSet id="1" author="Sena">
         <createTable tableName="Category">
             <column name="id" type="BIGINT" autoIncrement="true">
@@ -63,6 +64,7 @@
         </createTable>
     </changeSet>
 
+    <!-- SET FOREIGN KEYS  -->
     <changeSet id="5" author="Sena">
         <addForeignKeyConstraint
                 baseTableName="User"
@@ -79,6 +81,7 @@
                 referencedColumnNames="id" />
     </changeSet>
 
+    <!-- INSERT ROLES (ADMIN, USER)  -->
     <changeSet id="6" author="Sena">
         <insert tableName="Role">
             <column name="name" value="ADMIN"/>
@@ -88,6 +91,103 @@
     <changeSet id="7" author="Sena">
         <insert tableName="Role">
             <column name="name" value="USER"/>
+        </insert>
+    </changeSet>
+
+    <!-- INSERT USER  -->
+    <changeSet id="8" author="Sena">
+        <insert tableName="User">
+            <column name="email" value="abc@abc.com"/>
+            <column name="username" value="admin"/>
+            <column name="password" value="admin"/>
+            <column name="role_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <!-- INSERT CATEGORIES  -->
+    <changeSet id="9" author="Sena">
+        <insert tableName="Category">
+            <column name="name" value="Food"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="10" author="Sena">
+        <insert tableName="Category">
+            <column name="name" value="Cleaning"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="11" author="Sena">
+        <insert tableName="Category">
+            <column name="name" value="Beauty"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="12" author="Sena">
+        <insert tableName="Category">
+            <column name="name" value="Sport"/>
+        </insert>
+    </changeSet>
+
+    <!-- INSERT PRODUCT  -->
+    <!--
+    CATEGORY | ID
+    Food     | 1
+    Cleaning | 2
+    Beauty   | 3
+    Sport    | 4
+    -->
+    <changeSet id="13" author="Sena">
+        <insert tableName="Product">
+            <column name="name" value="Lipstick"/>
+            <column name="price" value="112.99"/>
+            <column name="explanation" value="Put it on your mouth, gives color"/>
+            <column name="category_id" value="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="14" author="Sena">
+        <insert tableName="Product">
+            <column name="name" value="Sponge"/>
+            <column name="price" value="5.50"/>
+            <column name="explanation" value="Very Absorbent"/>
+            <column name="category_id" value="2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="15" author="Sena">
+        <insert tableName="Product">
+            <column name="name" value="Carrot"/>
+            <column name="price" value="20.00"/>
+            <column name="explanation" value="Crunchyy, we sell by KG"/>
+            <column name="category_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="16" author="Sena">
+        <insert tableName="Product">
+            <column name="name" value="Tennis Racket"/>
+            <column name="price" value="223.87"/>
+            <column name="explanation" value="Hits hard to ball"/>
+            <column name="category_id" value="4"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="17" author="Sena">
+        <insert tableName="Product">
+            <column name="name" value="Birsah milk"/>
+            <column name="price" value="24.49"/>
+            <column name="explanation" value="From cows that wears VR to make them believe they are in grassland"/>
+            <column name="category_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="18" author="Sena">
+        <insert tableName="Product">
+            <column name="name" value="Prill"/>
+            <column name="price" value="80.99"/>
+            <column name="explanation" value="For dishes, def recommend, cleans good"/>
+            <column name="category_id" value="2"/>
         </insert>
     </changeSet>
 
