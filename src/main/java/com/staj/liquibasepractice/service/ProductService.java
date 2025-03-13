@@ -3,6 +3,7 @@ package com.staj.liquibasepractice.service;
 import com.staj.liquibasepractice.entity.Product;
 import com.staj.liquibasepractice.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +24,7 @@ public class ProductService {
 
     public Product addProduct(Product product){return productRepository.save(product);}
 
+    @Transactional
     public Product updateProduct(Product product, Long id){
         Product old = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
@@ -34,6 +36,7 @@ public class ProductService {
         return productRepository.save(old);
     }
 
+    @Transactional
     public void deleteProduct(Long id){
         Product toDelete = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
