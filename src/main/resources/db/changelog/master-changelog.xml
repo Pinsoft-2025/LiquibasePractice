@@ -208,4 +208,5 @@
         <renameTable oldTableName="User" newTableName="user"/>
     </changeSet>
 
+
 </databaseChangeLog>
