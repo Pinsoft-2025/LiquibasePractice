@@ -20,8 +20,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     //kategorileri listeleyen
+    @Override
     public List<Category> findAll(){return categoryRepository.findAll();}
 
+    @Override
     public Category addCategory(Category category){return categoryRepository.save(category);}
 
     //delete katagory eklersem ve cidden silersem o kategorideki produclara ne olacak

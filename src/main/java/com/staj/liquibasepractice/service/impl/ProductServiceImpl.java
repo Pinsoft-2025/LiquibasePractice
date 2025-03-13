@@ -19,13 +19,17 @@ public class ProductServiceImpl implements ProductService {
         this.productRepository = productRepository;
     }
 
+    @Override
     public List<Product> findAll(){return productRepository.findAll();}
 
+    @Override
     public Product findById(Long id){return productRepository.findById(id).get();}
 
+    @Override
     public Product addProduct(Product product){return productRepository.save(product);}
 
     @Transactional
+    @Override
     public Product updateProduct(Product product, Long id){
         Product old = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
@@ -38,12 +42,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Transactional
+    @Override
     public void deleteProduct(Long id){
         Product toDelete = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
         productRepository.delete(toDelete);
     }
 
+    @Override
     public List<String> simpleDisplay(){
         List<Product> products = productRepository.findAll();
 
