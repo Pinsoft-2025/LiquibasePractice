@@ -2,9 +2,7 @@ package com.staj.liquibasepractice.service.impl;
 
 import com.staj.liquibasepractice.entity.Category;
 import com.staj.liquibasepractice.repository.CategoryRepository;
-import com.staj.liquibasepractice.repository.ProductRepository;
 import com.staj.liquibasepractice.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
