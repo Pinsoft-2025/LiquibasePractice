@@ -31,8 +31,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public Product updateProduct(Product product, Long id){
-        Product old = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        Product old = productRepository.findById(id).get();
 
         old.setName(product.getName());
         old.setPrice(product.getPrice());
@@ -44,8 +43,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public void deleteProduct(Long id){
-        Product toDelete = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        Product toDelete = productRepository.findById(id).get();
         productRepository.delete(toDelete);
     }
 
