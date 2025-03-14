@@ -1,8 +1,11 @@
 package com.staj.liquibasepractice.service.impl;
 
 import com.staj.liquibasepractice.entity.Product;
+import com.staj.liquibasepractice.exceptions.ProductNotFoundException;
 import com.staj.liquibasepractice.repository.ProductRepository;
 import com.staj.liquibasepractice.service.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +23,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll(){return productRepository.findAll();}
+    public List<Product> findAll(){return validateProductList();}
 
     @Override
-    public Product findById(Long id){return productRepository.findById(id).get();}
+    public Product findById(Long id){return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));}
 
     @Override
     public Product addProduct(Product product){return productRepository.save(product);}
@@ -31,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public Product updateProduct(Product product, Long id){
-        Product old = productRepository.findById(id).get();
+        Product old = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
 
         old.setName(product.getName());
         old.setPrice(product.getPrice());
@@ -43,17 +46,26 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public void deleteProduct(Long id){
-        Product toDelete = productRepository.findById(id).get();
+        Product toDelete = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));;
         productRepository.delete(toDelete);
     }
 
     @Override
     public List<String> simpleDisplay(){
-        List<Product> products = productRepository.findAll();
+        List<Product> products = validateProductList();
 
         return products
                 .stream()
                 .map(product -> "Product " + product.getId() + "| " + product.getName() + "| " + product.getPrice() + "TL" )
                 .collect(Collectors.toList());
+    }
+
+    private List<Product> validateProductList(){
+        List<Product> products = productRepository.findAll();
+        if (products.isEmpty()) {
+            throw new ProductNotFoundException();
+        }else {
+            return products;
+        }
     }
 }

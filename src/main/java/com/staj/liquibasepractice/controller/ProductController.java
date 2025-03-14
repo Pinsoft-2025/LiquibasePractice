@@ -33,7 +33,7 @@ public class ProductController {
 
     @GetMapping("/find-by-id/{id}")
     public ResponseEntity<Product> findById(@PathVariable Long id){
-        return new ResponseEntity<>(productService.findById(findProductById(id)), HttpStatus.OK);
+            return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
@@ -42,21 +42,13 @@ public class ProductController {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable Long id){return ResponseEntity.ok(productService.updateProduct(product, findProductById(id)));}
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable Long id){return ResponseEntity.ok(productService.updateProduct(product, id));}
 
     @DeleteMapping("/delete/{id}")
-    public void deleteProduct(@PathVariable Long id){productService.deleteProduct(findProductById(id));}
+    public void deleteProduct(@PathVariable Long id){productService.deleteProduct(id);}
 
     @GetMapping("/simple-display")
     public ResponseEntity<List<String>> simpleDisplay(){return new ResponseEntity<>(productService.simpleDisplay(), HttpStatus.OK);}
 
-    private Long findProductById(Long id){
-        Product product = productService.findById(id);
-        if (product == null) {
-            throw new ProductNotFoundException(id);
-        }else {
-            return id;
-        }
-    }
 }
 
