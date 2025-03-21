@@ -21,6 +21,4 @@ public class Role {
 
     private String name;
 
-    @OneToMany
-    private List<Role> roles = new ArrayList<Role>();
 }
