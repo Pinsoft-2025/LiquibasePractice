@@ -4,6 +4,7 @@ import com.staj.liquibasepractice.entity.Product;
 import com.staj.liquibasepractice.exceptions.ProductNotFoundException;
 import com.staj.liquibasepractice.repository.ProductRepository;
 import com.staj.liquibasepractice.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,13 +15,10 @@ import java.util.stream.Collectors;
 
 // Ürünleri listeleyen,kategorileri listeleyen ve ürün detayını gösteren apiler
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     @Override
     public List<Product> findAll(){return validateProductList();}
