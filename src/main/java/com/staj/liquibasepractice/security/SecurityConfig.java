@@ -1,6 +1,7 @@
 package com.staj.liquibasepractice.security;
 
 import com.staj.liquibasepractice.security.jwt.JwtAuthFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +38,12 @@ public class SecurityConfig {
                 //.httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                //.exceptionHandling(Customizer.withDefaults())
+                .exceptionHandling(ex -> ex
+                        .accessDeniedHandler((req, res, excep) -> {
+                            res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            res.setContentType("application/json");
+                            res.getWriter().write("{\"error\": \"You don't have permission to access this resource.\"}");
+                        }))
                 //.oauth2Login(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
