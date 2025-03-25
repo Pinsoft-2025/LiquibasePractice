@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
+    @Override
     public User createUser(CreateUserRequest request) {
 
         //give role USER as default
