@@ -6,21 +6,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "role")
+@Table(name = "\"Role\"") // Case-sensitive yapmak için çift tırnak!
 public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "\"Id\"") // Case-sensitive sütun
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "\"Name\"", nullable = false, unique = true)
     private String name;
 
     @Override

@@ -1,4 +1,4 @@
-package com.staj.liquibasepractice.entity.dto.request;
+package com.staj.liquibasepractice.dto.request;
 
 public record LogRequest(
         String email,

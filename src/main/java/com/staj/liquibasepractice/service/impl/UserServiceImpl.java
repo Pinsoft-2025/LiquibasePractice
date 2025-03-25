@@ -2,7 +2,7 @@ package com.staj.liquibasepractice.service.impl;
 
 import com.staj.liquibasepractice.entity.Role;
 import com.staj.liquibasepractice.entity.User;
-import com.staj.liquibasepractice.entity.dto.request.CreateUserRequest;
+import com.staj.liquibasepractice.dto.request.CreateUserRequest;
 import com.staj.liquibasepractice.repository.RoleRepository;
 import com.staj.liquibasepractice.repository.UserRepository;
 import com.staj.liquibasepractice.service.UserService;

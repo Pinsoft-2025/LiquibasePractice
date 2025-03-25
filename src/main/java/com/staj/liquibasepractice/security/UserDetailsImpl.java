@@ -10,10 +10,13 @@ import java.util.Collection;
 import java.util.List;
 
 @Getter
-@RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
     private final User user;
+
+    public UserDetailsImpl(User user) {
+        this.user = user;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

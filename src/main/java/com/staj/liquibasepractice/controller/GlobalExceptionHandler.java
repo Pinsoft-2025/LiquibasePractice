@@ -1,6 +1,6 @@
 package com.staj.liquibasepractice.controller;
 
-import com.staj.liquibasepractice.entity.dto.response.ErrorResponse;
+import com.staj.liquibasepractice.dto.response.ErrorResponse;
 import com.staj.liquibasepractice.exceptions.ProductNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

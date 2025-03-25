@@ -1,4 +1,4 @@
-package com.staj.liquibasepractice.entity.dto.response;
+package com.staj.liquibasepractice.dto.response;
 
 
 import java.time.LocalDateTime;

@@ -1,7 +1,7 @@
 package com.staj.liquibasepractice.service;
 
 import com.staj.liquibasepractice.entity.User;
-import com.staj.liquibasepractice.entity.dto.request.CreateUserRequest;
+import com.staj.liquibasepractice.dto.request.CreateUserRequest;
 
 import java.util.Optional;
 
