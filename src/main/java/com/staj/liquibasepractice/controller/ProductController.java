@@ -46,9 +46,9 @@ public class ProductController {
     @GetMapping("/user/simple-display")
     public ResponseEntity<List<String>> simpleDisplay(){return new ResponseEntity<>(productService.simpleDisplay(), HttpStatus.OK);}
 
-    @GetMapping("/user/search/{promt}")
-    public ResponseEntity<List<ProductDisplayResponse>> searchProduct(@PathVariable String promt){
-        return new ResponseEntity<>(productService.searchProduct(promt),HttpStatus.FOUND);
+    @GetMapping("/user/search/{prompt}")
+    public ResponseEntity<List<ProductDisplayResponse>> searchProduct(@PathVariable String prompt){
+        return new ResponseEntity<>(productService.searchProduct(prompt),HttpStatus.FOUND);
     }
 }
 
