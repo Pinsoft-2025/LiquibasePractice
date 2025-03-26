@@ -208,5 +208,13 @@
         <renameTable oldTableName="User" newTableName="user"/>
     </changeSet>
 
+    <!--ADD BASE64IMAGE COLUMN-->
+    <changeSet id="23" author="Sena">
+        <addColumn tableName="product">
+            <column name="base64_image" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>
