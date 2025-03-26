@@ -24,11 +24,7 @@ public class ProductController {
     @GetMapping("/user/find-all")
     public ResponseEntity<List<ProductDisplayResponse>> findAll(){
         List<ProductDisplayResponse> products = productService.findAll();
-        if (products.isEmpty()) {
-            throw new ProductNotFoundException();
-        }else {
-            return new ResponseEntity<>(products, HttpStatus.OK);
-        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @GetMapping("/user/find-by-id/{id}")
@@ -50,5 +46,9 @@ public class ProductController {
     @GetMapping("/user/simple-display")
     public ResponseEntity<List<String>> simpleDisplay(){return new ResponseEntity<>(productService.simpleDisplay(), HttpStatus.OK);}
 
+    @GetMapping("/user/search/{promt}")
+    public ResponseEntity<List<ProductDisplayResponse>> searchProduct(@PathVariable String promt){
+        return new ResponseEntity<>(productService.searchProduct(promt),HttpStatus.FOUND);
+    }
 }
 

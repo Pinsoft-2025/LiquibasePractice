@@ -72,6 +72,7 @@ public class ProductServiceImpl implements ProductService {
                 .toList();
     }
 
+    @Override
     public List<ProductDisplayResponse> searchProduct(String search){
         List<Product> products = productRepository.findByNameContaining(search);
         List<ProductDisplayResponse> result = products.stream()
