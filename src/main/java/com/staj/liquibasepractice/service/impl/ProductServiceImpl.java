@@ -80,6 +80,14 @@ public class ProductServiceImpl implements ProductService {
         return result;
     }
 
+    @Override
+    public List<ProductDisplayResponse> searchProductByCategory(String category) {
+        List<Product> products = productRepository.findByCategory_Name(category);
+        List<ProductDisplayResponse> result = products.stream()
+                .map(product -> productToResponse(product)).toList();
+        return result;
+    }
+
 
     //<<<<<<<<<<<<< PRIVTE METHODS >>>>>>>>>>>>>>
 
