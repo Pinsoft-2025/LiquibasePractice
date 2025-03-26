@@ -28,6 +28,9 @@ public class Product {
     @Column(name = "explanation")
     private String explanation;
 
+    @Column(name = "base64_image", columnDefinition = "TEXT")
+    private String base64Image;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     @JsonBackReference //dto gelene kadar geçici çözüm

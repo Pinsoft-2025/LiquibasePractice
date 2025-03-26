@@ -13,18 +13,11 @@ public interface ProductService {
     Product updateProduct(CreateProductRequest request, Long id);
     void deleteProduct(Long id);
     List<String> simpleDisplay();
+    List<ProductDisplayResponse> searchProduct(String search);
 }
 /*
-1-
-"Like" sql query ile yazılana benzer ürünler döndürmek,
-bunu seçilen kategorilere sınırlandırarak göstermek
 
 2-
 Logout, tokenin geçici bir yerde tutulması, ör:localstorage
 
-3-
- Product tablosuna “base64Image” kolonu ekleyin.
- Product tablosuna veri ekleyen api’yi yazın. Figmaya baktığınızda ürünlerin bir
- görselinin de eklenmesi gerektiğini istediğimi anlayacaksınız. Bunu göz önüne alarak
- bu apiyi yazın
  */
