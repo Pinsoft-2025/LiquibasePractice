@@ -1,5 +1,7 @@
 package com.staj.liquibasepractice.controller;
 
+import com.staj.liquibasepractice.dto.request.CreateProductRequest;
+import com.staj.liquibasepractice.dto.response.ProductDisplayResponse;
 import com.staj.liquibasepractice.entity.Product;
 import com.staj.liquibasepractice.exceptions.ProductNotFoundException;
 import com.staj.liquibasepractice.service.ProductService;
@@ -20,8 +22,8 @@ public class ProductController {
     //baya berbat çalışıyo, döngüye giriyo. nasıl tüm productları göndercez? formatlamak lazım
     //belki dto
     @GetMapping("/user/find-all")
-    public ResponseEntity<List<Product>> findAll(){
-        List<Product> products = productService.findAll();
+    public ResponseEntity<List<ProductDisplayResponse>> findAll(){
+        List<ProductDisplayResponse> products = productService.findAll();
         if (products.isEmpty()) {
             throw new ProductNotFoundException();
         }else {
@@ -30,17 +32,17 @@ public class ProductController {
     }
 
     @GetMapping("/user/find-by-id/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id){
+    public ResponseEntity<ProductDisplayResponse> findById(@PathVariable Long id){
             return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
     }
 
     @PostMapping("/admin/add")
-    public ResponseEntity<Product> addProduct(@RequestBody Product product){
-        return new ResponseEntity<>(productService.addProduct(product), HttpStatus.CREATED);
+    public ResponseEntity<Product> addProduct(@RequestBody CreateProductRequest request){
+        return new ResponseEntity<>(productService.addProduct(request), HttpStatus.CREATED);
     }
 
     @PostMapping("/admin/update/{id}")
-    public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable Long id){return ResponseEntity.ok(productService.updateProduct(product, id));}
+    public ResponseEntity<Product> updateProduct(@RequestBody CreateProductRequest request, @PathVariable Long id){return ResponseEntity.ok(productService.updateProduct(request, id));}
 
     @DeleteMapping("/admin/delete/{id}")
     public void deleteProduct(@PathVariable Long id){productService.deleteProduct(id);}
