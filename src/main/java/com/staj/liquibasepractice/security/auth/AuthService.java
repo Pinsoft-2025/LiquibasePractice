@@ -35,14 +35,14 @@ public class AuthService {
           )
         );
 
-        UserDetailsImpl userDetails = new UserDetailsImpl(
-                userRepository.findByEmail(logRequest.email())
-                        .orElseThrow(() -> new UsernameNotFoundException("User not found"))
-        );
+        User user =userRepository.findByEmail(logRequest.email())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        UserDetailsImpl userDetails = new UserDetailsImpl(user);
 
         String jwtToken = jwtService.generateToken(userDetails);
 
-        return new LogResponse(userDetails.getUser().getId(), jwtToken);
+        return new LogResponse(user.getEmail(),user.getUsername(),user.getRole().getName(), jwtToken);
     }
 
     public LogResponse register(RegisterRequest registerRequest) {
@@ -56,10 +56,10 @@ public class AuthService {
                 .build();
         User savedUser = userRepository.save(user);
 
-        UserDetailsImpl userDetails = new UserDetailsImpl(user);
+        UserDetailsImpl userDetails = new UserDetailsImpl(savedUser);
 
         String jwtToken = jwtService.generateToken(userDetails);
 
-        return new LogResponse(userDetails.getUser().getId(), jwtToken);
+        return new LogResponse(savedUser.getEmail(),savedUser.getUsername(),savedUser.getRole().getName(), jwtToken);
     }
 }
