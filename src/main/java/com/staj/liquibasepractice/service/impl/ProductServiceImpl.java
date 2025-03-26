@@ -27,7 +27,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDisplayResponse> findAll(){
-       return validateProductList().stream().map(product -> productToResponse(product)).toList();
+        List<Product> products = productRepository.findAll();
+        validateProductList(products);
+       return products.stream().map(product -> productToResponse(product)).toList();
     }
 
     @Override
@@ -64,7 +66,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<String> simpleDisplay(){
-        List<Product> products = validateProductList();
+        List<Product> products =  productRepository.findAll();
+        validateProductList(products);
 
         return products
                 .stream()
@@ -75,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDisplayResponse> searchProduct(String search){
         List<Product> products = productRepository.findByNameContaining(search);
-        List<ProductDisplayResponse> result = products.stream()
+        List<ProductDisplayResponse> result = validateProductList(products).stream()
                 .map(product -> productToResponse(product)).toList();
         return result;
     }
@@ -83,7 +86,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDisplayResponse> searchProductByCategory(String category) {
         List<Product> products = productRepository.findByCategory_Name(category);
-        List<ProductDisplayResponse> result = products.stream()
+        List<ProductDisplayResponse> result = validateProductList(products).stream()
                 .map(product -> productToResponse(product)).toList();
         return result;
     }
@@ -92,10 +95,9 @@ public class ProductServiceImpl implements ProductService {
     //<<<<<<<<<<<<< PRIVTE METHODS >>>>>>>>>>>>>>
 
     //checks if there are any null products in a list
-    private List<Product> validateProductList(){
-        List<Product> products = productRepository.findAll();
+    private List<Product> validateProductList(List<Product> products){
         if (products.isEmpty()) {
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException(); //custom exception
         }else {
             return products;
         }
@@ -108,7 +110,7 @@ public class ProductServiceImpl implements ProductService {
 
         if(fileName.contains(".."))
         {
-            throw new ProductNotFoundException("not a a valid file, can't find image");
+            throw new ProductNotFoundException("not a a valid file, can't find image"); //would be better if I TODO make custom exception
         }
     }
 
@@ -129,7 +131,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             return Base64.getEncoder().encodeToString(imageFile.getBytes());
         } catch (IOException e) {
-            throw new RuntimeException("Error encoding image to Base64", e);
+            throw new RuntimeException("Error encoding image to Base64", e);//would be better if I TODO make custom exception
         }
     }
 
