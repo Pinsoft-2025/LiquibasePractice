@@ -19,5 +19,5 @@ public class CategoryController {
     public ResponseEntity<List<Category>> findAll(){return ResponseEntity.ok(categoryService.findAll());}
 
     @PostMapping("/admin/add")
-    public ResponseEntity<Category> addCategory( @RequestBody Category category){return  ResponseEntity.ok(categoryService.addCategory(category));}
+    public ResponseEntity<Category> addCategory(@RequestBody Category category){return  ResponseEntity.ok(categoryService.addCategory(category));}
 }

@@ -4,7 +4,6 @@ import com.staj.liquibasepractice.dto.request.CreateProductRequest;
 import com.staj.liquibasepractice.dto.response.ProductDisplayResponse;
 import com.staj.liquibasepractice.entity.Category;
 import com.staj.liquibasepractice.entity.Product;
-import com.staj.liquibasepractice.exceptions.ProductNotFoundException;
 import com.staj.liquibasepractice.service.CategoryService;
 import com.staj.liquibasepractice.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -37,12 +36,11 @@ public class ProductController {
     }
 
     @PostMapping(path = "/admin/add", consumes = "multipart/form-data")
-    public ResponseEntity<Product> addProduct(
-            @RequestParam("name") String name,
-            @RequestParam("price") float price,
-            @RequestParam("explanation") String explanation,
-            @RequestParam("category") String categoryName,
-            @RequestParam("imageFile") MultipartFile imageFile)
+    public ResponseEntity<Product> addProduct(@RequestParam("name") String name,
+                                              @RequestParam("price") float price,
+                                              @RequestParam("explanation") String explanation,
+                                              @RequestParam("category") String categoryName,
+                                              @RequestParam("imageFile") MultipartFile imageFile)
     {
         Category category = categoryService.findCategoryByName(categoryName);
         CreateProductRequest request = new CreateProductRequest(name, price, explanation, category, imageFile);
