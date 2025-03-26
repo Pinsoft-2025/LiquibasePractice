@@ -2,13 +2,16 @@ package com.staj.liquibasepractice.controller;
 
 import com.staj.liquibasepractice.dto.request.CreateProductRequest;
 import com.staj.liquibasepractice.dto.response.ProductDisplayResponse;
+import com.staj.liquibasepractice.entity.Category;
 import com.staj.liquibasepractice.entity.Product;
 import com.staj.liquibasepractice.exceptions.ProductNotFoundException;
+import com.staj.liquibasepractice.service.CategoryService;
 import com.staj.liquibasepractice.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,6 +21,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final CategoryService categoryService;
 
     //baya berbat çalışıyo, döngüye giriyo. nasıl tüm productları göndercez? formatlamak lazım
     //belki dto
@@ -32,13 +36,33 @@ public class ProductController {
             return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/admin/add")
-    public ResponseEntity<Product> addProduct(@RequestBody CreateProductRequest request){
+    @PostMapping(path = "/admin/add", consumes = "multipart/form-data")
+    public ResponseEntity<Product> addProduct(
+            @RequestParam("name") String name,
+            @RequestParam("price") float price,
+            @RequestParam("explanation") String explanation,
+            @RequestParam("category") String categoryName,
+            @RequestParam("imageFile") MultipartFile imageFile)
+    {
+        Category category = categoryService.findCategoryByName(categoryName);
+        CreateProductRequest request = new CreateProductRequest(name, price, explanation, category, imageFile);
         return new ResponseEntity<>(productService.addProduct(request), HttpStatus.CREATED);
     }
 
-    @PostMapping("/admin/update/{id}")
-    public ResponseEntity<Product> updateProduct(@RequestBody CreateProductRequest request, @PathVariable Long id){return ResponseEntity.ok(productService.updateProduct(request, id));}
+
+    @PostMapping(path = "/admin/update/{id}", consumes = "multipart/form-data")
+    public ResponseEntity<Product> updateProduct(@RequestParam("name") String name,
+                                                 @RequestParam("price") float price,
+                                                 @RequestParam("explanation") String explanation,
+                                                 @RequestParam("category") String categoryName,
+                                                 @RequestParam("imageFile") MultipartFile imageFile,
+                                                 @PathVariable Long id)
+    {
+        Category category = categoryService.findCategoryByName(categoryName);
+
+        CreateProductRequest request = new CreateProductRequest(name, price, explanation, category, imageFile);
+        return ResponseEntity.ok(productService.updateProduct(request, id));
+    }
 
     @DeleteMapping("/admin/delete/{id}")
     public void deleteProduct(@PathVariable Long id){productService.deleteProduct(id);}

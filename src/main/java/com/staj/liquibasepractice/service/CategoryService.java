@@ -7,4 +7,5 @@ import java.util.List;
 public interface CategoryService {
     List<Category> findAll();
     Category addCategory(Category category);
+    Category findCategoryByName(String name);
 }

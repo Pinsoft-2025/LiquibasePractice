@@ -22,5 +22,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category addCategory(Category category){return categoryRepository.save(category);}
 
-    //delete katagory eklersem ve cidden silersem o kategorideki produclara ne olacak
+    @Override
+    public Category findCategoryByName(String categoryName) {
+        return categoryRepository.findByName(categoryName);
+    }
+
 }
