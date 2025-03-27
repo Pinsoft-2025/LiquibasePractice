@@ -9,6 +9,7 @@ import com.staj.liquibasepractice.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +38,7 @@ public class ProductController {
     }
 
     @Transactional
+    @Secured("ROLE_ADMIN")//not necessery since we define the same thing in securityconfig, I put for extra security, and to be have used metod lvl secuirty for once
     @PostMapping(path = "/admin/add", consumes = "multipart/form-data")
     public ResponseEntity<Product> addProduct(@RequestParam("name") String name,
                                               @RequestParam("price") float price,
@@ -50,6 +52,7 @@ public class ProductController {
     }
 
     @Transactional
+    @Secured("ROLE_ADMIN")
     @PostMapping(path = "/admin/update/{id}", consumes = "multipart/form-data")
     public ResponseEntity<Product> updateProduct(@RequestParam("name") String name,
                                                  @RequestParam("price") float price,
@@ -63,6 +66,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.updateProduct(request, id));
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/admin/delete/{id}")
     public void deleteProduct(@PathVariable Long id){productService.deleteProduct(id);}
 
