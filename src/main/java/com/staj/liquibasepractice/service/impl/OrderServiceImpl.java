@@ -1,10 +1,12 @@
 package com.staj.liquibasepractice.service.impl;
 
+import com.staj.liquibasepractice.dto.request.OrderRequest;
 import com.staj.liquibasepractice.dto.response.OrderResponce;
 import com.staj.liquibasepractice.entity.Order;
 import com.staj.liquibasepractice.entity.Product;
 import com.staj.liquibasepractice.exceptions.ProductNotFoundException;
 import com.staj.liquibasepractice.repository.OrderRepository;
+import com.staj.liquibasepractice.repository.UserRepository;
 import com.staj.liquibasepractice.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,11 +18,24 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final UserRepository userRepository;
 
     @Override
     public List<OrderResponce> findOrdersByUserId(Long userId) {
         return orderRepository.findByUser_Id(userId).stream()
                 .map(this::orderToResponse).toList();
+    }
+
+    //Buy product, add to the Orders list
+    @Override
+    public Order createOrder(OrderRequest orderRequest) {
+        Order order = Order.builder()
+                .price(orderRequest.price())
+                .name(orderRequest.name())
+                .quantity(orderRequest.quantity())
+                .user(userRepository.findById(orderRequest.userId()).orElseThrow(NoSuchElementException::new))
+                .build();
+        return orderRepository.save(order);
     }
 
     //<<<<<<<<<<< PRIVATE METHODS >>>>>>>>>>>
@@ -33,4 +48,14 @@ public class OrderServiceImpl implements OrderService {
                 order.getQuantity()
         );
     }
+
+    // OrderRequest(Dto) -> Order
+//    private Order requestToOrder(OrderRequest orderRequest){
+//        Order order = Order.builder()
+//                .price(orderRequest.price())
+//                .name(orderRequest.name())
+//                .quantity(orderRequest.quantity())
+//                .user(userRepository.findById(orderRequest.userId()).orElseThrow(NoSuchElementException::new))
+//                .build();
+//    }
 }
