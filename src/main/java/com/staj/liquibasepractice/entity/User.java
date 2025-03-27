@@ -1,34 +1,42 @@
 package com.staj.liquibasepractice.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "\"User\"") // PostgreSQL'de case-sensitive yapmak için çift tırnak!
+@Table(name = "\"user\"") // PostgreSQL'de case-sensitive yapmak için çift tırnak!
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "\"Id\"") // Case-sensitive sütun
+    @Column(name = "\"id\"") // Case-sensitive sütun
     private Long id;
 
-    @Column(name = "\"Email\"", unique = true, nullable = false)
+    @Column(name = "\"email\"", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "\"Username\"", nullable = false)
+    @Column(name = "\"username\"", nullable = false)
     private String username;
 
-    @Column(name = "\"Password\"", nullable = false)
+    @Column(name = "\"password\"", nullable = false)
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "\"Role_Id\"", nullable = false)
+    @JoinColumn(name = "\"role_Id\"", nullable = false)
     private Role role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference //dto gelene kadar geçici çözüm
+    private List<Order> orders = new ArrayList<Order>();
 }

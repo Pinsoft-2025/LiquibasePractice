@@ -12,27 +12,27 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "product")
+@Table(name = "\"product\"")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "\"name\"", nullable = false)
     private String name;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "\"price\"", nullable = false)
     private float price;
 
-    @Column(name = "explanation")
+    @Column(name = "\"explanation\"")
     private String explanation;
 
-    @Column(name = "base64_image", columnDefinition = "TEXT")
+    @Column(name = "\"base64_image\"", columnDefinition = "TEXT")
     private String base64Image;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "\"category_id\"", nullable = false)
     @JsonBackReference //dto gelene kadar geçici çözüm
     private Category category;
 }
