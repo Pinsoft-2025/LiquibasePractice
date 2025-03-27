@@ -3,6 +3,7 @@ package com.staj.liquibasepractice.service;
 import com.staj.liquibasepractice.dto.request.OrderRequest;
 import com.staj.liquibasepractice.dto.response.OrderResponce;
 import com.staj.liquibasepractice.entity.Order;
+import com.staj.liquibasepractice.entity.Product;
 import com.staj.liquibasepractice.entity.User;
 import org.springframework.stereotype.Service;
 
@@ -13,4 +14,6 @@ public interface OrderService {
     List<OrderResponce>findOrdersByUserId(Long userId);
     Order createOrder(OrderRequest orderRequest); //buy product
     void deleteOrder(Long orderId);
+//    Order addProductToOrder(Long orderId, Product product);
+//    Order deleteProductFromOrder(Long orderId, Long productId);
 }

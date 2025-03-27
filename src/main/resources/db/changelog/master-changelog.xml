@@ -285,5 +285,32 @@
                 referencedTableName="product"
                 referencedColumnNames="id"/>
     </changeSet>
+    <changeSet id="28" author="Sena">
+        <!-- Drop the foreign key constraints first -->
+        <dropForeignKeyConstraint baseTableName="order_product"
+                constraintName="fk_orderproduct_order"/>
+        <dropForeignKeyConstraint baseTableName="order_product"
+                constraintName="fk_orderproduct_product"/>
+    </changeSet>
 
+    <changeSet id="29" author="Sena">
+        <!-- Drop the 'order_product' table -->
+        <dropTable tableName="order_product"/>
+    </changeSet>
+
+    <!-- ADD ORDER-PRODUCT FK -->
+    <changeSet id="30" author="Sena">
+        <addColumn tableName="product">
+            <column name="order_id" type="BIGINT"></column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="31" author="Sena">
+        <addForeignKeyConstraint
+                baseTableName="product"
+                baseColumnNames="order_id"
+                constraintName="fk_product_order"
+                referencedTableName="order"
+                referencedColumnNames="id"/>
+    </changeSet>
 </databaseChangeLog>

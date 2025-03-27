@@ -35,4 +35,9 @@ public class Product {
     @JoinColumn(name = "\"category_id\"", nullable = false)
     @JsonBackReference //dto gelene kadar geçici çözüm
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "\"order_id\"", nullable = false)
+    @JsonBackReference
+    private Order order;
 }

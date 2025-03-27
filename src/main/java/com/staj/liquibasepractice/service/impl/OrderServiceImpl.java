@@ -6,6 +6,7 @@ import com.staj.liquibasepractice.entity.Order;
 import com.staj.liquibasepractice.entity.Product;
 import com.staj.liquibasepractice.exceptions.ProductNotFoundException;
 import com.staj.liquibasepractice.repository.OrderRepository;
+import com.staj.liquibasepractice.repository.ProductRepository;
 import com.staj.liquibasepractice.repository.UserRepository;
 import com.staj.liquibasepractice.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.NoSuchElementException;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
+//    private final ProductRepository productRepository;
 
     @Override
     public List<OrderResponce> findOrdersByUserId(Long userId) {
@@ -35,10 +37,27 @@ public class OrderServiceImpl implements OrderService {
                 .price(orderRequest.price())
                 .name(orderRequest.name())
                 .quantity(orderRequest.quantity())
+                .products(orderRequest.products())
                 .user(userRepository.findById(orderRequest.userId()).orElseThrow(NoSuchElementException::new))
                 .build();
         return orderRepository.save(order);
     }
+//
+//    @Transactional
+//    @Override
+//    public Order addProductToOrder(Long orderId, Product product) {
+//        Order order = orderRepository.findById(orderId).orElseThrow(NoSuchElementException::new);
+//        order.getProducts().add(product);
+//        return orderRepository.save(order);
+//    }
+//
+//    @Transactional
+//    @Override
+//    public Order deleteProductFromOrder(Long orderId, Long productId) {
+//        Order order = orderRepository.findById(orderId).orElseThrow(NoSuchElementException::new);
+//        order.getProducts().remove(productRepository.findById(productId).orElseThrow(NoSuchElementException::new));
+//        return orderRepository.save(order);
+//    }
 
     @Transactional
     @Override
