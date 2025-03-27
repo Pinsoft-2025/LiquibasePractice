@@ -27,7 +27,9 @@ public class OrderController {
         return new ResponseEntity<>(orderService.createOrder(orderRequest), HttpStatus.CREATED);
     }
 
-    public String deleteOrder(Long orderId){
+    //this cancels order in a way too simple way, I don't think you get a refund yet
+    @DeleteMapping("/cancel-order/{id}")
+    public String deleteOrder(@PathVariable("id") Long orderId){
         orderService.deleteOrder(orderId);
         return "Order deleted successfully";
     }
