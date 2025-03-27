@@ -20,13 +20,13 @@ public class Order {
     private Long id;
 
     @Column(name = "\"name\"")
-    String name;
+    private String name;
 
     @Column(name = "\"price\"")
-    float price;
+    private float price;
 
     @Column(name = "\"quantity\"")
-    int quantity;
+    private int quantity;
 
     @ManyToOne
     @JoinColumn(name = "\"user_id\"", nullable = false)
