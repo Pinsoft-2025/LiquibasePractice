@@ -17,7 +17,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping("/user/find-user-orders/{id}")
-    public ResponseEntity<List<OrderResponce>> findOrdersByUserId(@PathVariable Long userId){
+    public ResponseEntity<List<OrderResponce>> findOrdersByUserId(@PathVariable("id") Long userId){
         return new ResponseEntity<>(orderService.findOrdersByUserId(userId), HttpStatus.FOUND);
     }
 }

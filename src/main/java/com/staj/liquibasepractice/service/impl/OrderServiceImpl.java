@@ -19,21 +19,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderResponce> findOrdersByUserId(Long userId) {
-        List<Order> orders = orderRepository.findByUser_Id(userId);
-        return validateOrderList(orders).stream()
+        return orderRepository.findByUser_Id(userId).stream()
                 .map(this::orderToResponse).toList();
     }
 
     //<<<<<<<<<<< PRIVATE METHODS >>>>>>>>>>>
-
-    //checks if there are any null orders in a list
-    private List<Order> validateOrderList(List<Order> orders){
-        if (orders.isEmpty()) {
-            throw new NoSuchElementException("no order found"); //TODO custom exception
-        }else {
-            return orders;
-        }
-    }
 
     // Order -> OrderResponse(DTO)
     private OrderResponce orderToResponse(Order order){
