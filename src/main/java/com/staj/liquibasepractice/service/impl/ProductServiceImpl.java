@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDisplayResponse> findAll(){
         List<Product> products = productRepository.findAll();
         validateProductList(products);
-       return products.stream().map(product -> productToResponse(product)).toList();
+       return products.stream().map(this::productToResponse).toList();
     }
 
     @Override
@@ -78,17 +78,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDisplayResponse> searchProduct(String search){
         List<Product> products = productRepository.findByNameContaining(search);
-        List<ProductDisplayResponse> result = validateProductList(products).stream()
-                .map(product -> productToResponse(product)).toList();
-        return result;
+        return validateProductList(products).stream()
+                .map(this::productToResponse).toList();
     }
 
     @Override
     public List<ProductDisplayResponse> searchProductByCategory(String category) {
         List<Product> products = productRepository.findByCategory_Name(category);
-        List<ProductDisplayResponse> result = validateProductList(products).stream()
-                .map(product -> productToResponse(product)).toList();
-        return result;
+        return validateProductList(products).stream()
+                .map(this::productToResponse).toList();
     }
 
 

@@ -9,6 +9,7 @@ import com.staj.liquibasepractice.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,6 +36,7 @@ public class ProductController {
             return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
     }
 
+    @Transactional
     @PostMapping(path = "/admin/add", consumes = "multipart/form-data")
     public ResponseEntity<Product> addProduct(@RequestParam("name") String name,
                                               @RequestParam("price") float price,
@@ -47,7 +49,7 @@ public class ProductController {
         return new ResponseEntity<>(productService.addProduct(request), HttpStatus.CREATED);
     }
 
-
+    @Transactional
     @PostMapping(path = "/admin/update/{id}", consumes = "multipart/form-data")
     public ResponseEntity<Product> updateProduct(@RequestParam("name") String name,
                                                  @RequestParam("price") float price,
@@ -57,7 +59,6 @@ public class ProductController {
                                                  @PathVariable Long id)
     {
         Category category = categoryService.findCategoryByName(categoryName);
-
         CreateProductRequest request = new CreateProductRequest(name, price, explanation, category, imageFile);
         return ResponseEntity.ok(productService.updateProduct(request, id));
     }
