@@ -12,4 +12,5 @@ import java.util.List;
 public interface OrderService {
     List<OrderResponce>findOrdersByUserId(Long userId);
     Order createOrder(OrderRequest orderRequest); //buy product
+    void deleteOrder(Long orderId);
 }

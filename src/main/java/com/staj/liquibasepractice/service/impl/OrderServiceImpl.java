@@ -10,6 +10,7 @@ import com.staj.liquibasepractice.repository.UserRepository;
 import com.staj.liquibasepractice.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -27,6 +28,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     //Buy product, add to the Orders list
+    @Transactional
     @Override
     public Order createOrder(OrderRequest orderRequest) {
         Order order = Order.builder()
@@ -36,6 +38,17 @@ public class OrderServiceImpl implements OrderService {
                 .user(userRepository.findById(orderRequest.userId()).orElseThrow(NoSuchElementException::new))
                 .build();
         return orderRepository.save(order);
+    }
+
+    @Transactional
+    @Override
+    public void deleteOrder(Long orderId) {
+        if (orderRepository.existsById(orderId)) {
+            orderRepository.deleteById(orderId);
+        }else {
+            throw new NoSuchElementException("Order not found");
+        }
+
     }
 
     //<<<<<<<<<<< PRIVATE METHODS >>>>>>>>>>>

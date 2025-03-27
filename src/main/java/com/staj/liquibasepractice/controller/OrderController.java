@@ -26,4 +26,9 @@ public class OrderController {
     public ResponseEntity<Order> createOrder(@RequestBody OrderRequest orderRequest){
         return new ResponseEntity<>(orderService.createOrder(orderRequest), HttpStatus.CREATED);
     }
+
+    public String deleteOrder(Long orderId){
+        orderService.deleteOrder(orderId);
+        return "Order deleted successfully";
+    }
 }
